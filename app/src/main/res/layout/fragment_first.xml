@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="172dp"
         android:textSize="27sp"
-        android:text="@string/hello_first_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         android:hint="Titulo fecha"
         app:layout_constraintHorizontal_bias="0.442"

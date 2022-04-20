@@ -15,8 +15,8 @@ class RepositoryCorona {
             val response = retrofit.getTotal(date, "96afa298cbmsh913f910f914494cp110c39jsn01a32d68445e")
 
             when(response.isSuccessful) {
-
                 true -> response.body()?.let {
+                    liveDataDateResponse.value = it
                     Log.d("repo1", "${it}")
 
                 }

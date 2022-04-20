@@ -9,12 +9,11 @@ import kotlinx.coroutines.launch
 
 class DateViewmodel : ViewModel() {
 
-    private val repository : RepositoryCorona
-    val getTotalDate : LiveData<DateResponse>
+    private val repository : RepositoryCorona = RepositoryCorona()
+    val getTotalDateRepo : LiveData<DateResponse>
 
     init {
-        repository = RepositoryCorona()
-        getTotalDate = repository.liveDataDateResponse
+        getTotalDateRepo = repository.liveDataDateResponse
     }
 
     fun getTotalDate(date :String) = viewModelScope.launch {
