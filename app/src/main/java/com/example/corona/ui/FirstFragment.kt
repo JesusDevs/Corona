@@ -15,9 +15,7 @@ import com.example.corona.databinding.FragmentFirstBinding
 import com.example.corona.viewmodel.DateViewmodel
 import java.util.*
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
+
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
@@ -40,6 +38,7 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val now = Calendar.getInstance()
 
+        //reste dos días porque con uno no tenía respuesta del servidor
         now.add(Calendar.DATE, -2)
         val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(now.time)
 

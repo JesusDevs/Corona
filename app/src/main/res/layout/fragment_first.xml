@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="172dp"
         android:textSize="27sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         android:hint="Titulo fecha"
         app:layout_constraintHorizontal_bias="0.442"
@@ -47,16 +48,19 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
+        android:src="@mipmap/home_foreground"
         app:layout_constraintBottom_toTopOf="@+id/button_first"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cantidadPersonasInfectadas" />
+        app:layout_constraintTop_toBottomOf="@+id/casosConfirmados" />
 
     <Button
         android:id="@+id/button_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="37dp"
+        android:layout_marginEnd="25dp"
         android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
