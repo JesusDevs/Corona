@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Corona">
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".splash.SplashActivity"
             android:exported="true"
 
             android:theme="@style/Theme.Design.NoActionBar">

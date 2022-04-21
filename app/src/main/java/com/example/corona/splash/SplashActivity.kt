@@ -1,4 +1,4 @@
-package com.example.corona.ui
+package com.example.corona.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.corona.R
 import com.example.corona.databinding.ActivitySplashBinding
+import com.example.corona.ui.MainActivity
 
 @SuppressLint("CustomSplashScreen")
 @Suppress("DEPRECATION")
