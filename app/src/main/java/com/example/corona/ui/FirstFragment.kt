@@ -1,16 +1,19 @@
 package com.example.corona.ui
 
+import android.icu.text.SimpleDateFormat
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.example.corona.R
 import com.example.corona.databinding.FragmentFirstBinding
 import com.example.corona.viewmodel.DateViewmodel
+import java.util.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -32,23 +35,53 @@ class FirstFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val now = Calendar.getInstance()
 
-        mViewModel.getTotalDate("2021-04-07")
+        now.add(Calendar.DATE, -2)
+        val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(now.time)
 
 
+        mViewModel.getTotalDate(date)
         mViewModel.getTotalDateRepo.observe(viewLifecycleOwner) {
             it?.let{
                 Log.d("tag",it.toString())
-                _binding!!.titulo.text = (it.data.date.toString())
+                _binding!!.titulo.text = it.data.date
+                _binding!!.casosConfirmados.text = "${getString(R.string.casos)} ${it.data.deaths}"
+                _binding!!.cantidadPersonasInfectadas.text ="${getString(R.string.personas_infectadas)} ${it.data.active}"
             }
 
         }
 
         binding.buttonFirst.setOnClickListener {
+            showDatePickerDialog()
+
         }
     }
+
+    private fun showDatePickerDialog() {
+      val datePicker = DatePicker { day, month, year -> onDateSelected(day, month, year) }
+        datePicker.show(childFragmentManager, "datePicker")
+
+      }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun onDateSelected(day: Int, month: Int, year: Int) {
+        if(day!=0 && month!=0 && year!=0) {
+            val calendar = Calendar.getInstance()
+            calendar.set(year, month, day)
+            val date = calendar.time
+            val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val dateString = formatter.format(date)
+            Log.d("tag", "dateString: $dateString")
+            //llamada a la api picker
+            mViewModel.getTotalDate(dateString)
+        }
+
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
