@@ -48,7 +48,7 @@ class FirstFragment : Fragment() {
             it?.let{
                 Log.d("tag",it.toString())
                 _binding!!.titulo.text = it.data.date
-                _binding!!.casosConfirmados.text = "${getString(R.string.casos)} ${it.data.deaths}"
+                _binding!!.casosConfirmados.text = "${getString(R.string.casos)} ${it.data.confirmed}"
                 _binding!!.cantidadPersonasInfectadas.text ="${getString(R.string.personas_infectadas)} ${it.data.active}"
             }
 
