@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -22,7 +23,7 @@ class FirstFragment : Fragment() {
     private val mViewModel : DateViewmodel by activityViewModels()
 
     private val binding get() = _binding!!
-
+    var date = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,9 +39,9 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val now = Calendar.getInstance()
 
-        //reste dos días porque con uno no tenía respuesta del servidor
-        now.add(Calendar.DATE, -2)
-        val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(now.time)
+        //reste dos días porque con uno obtenía "data": [] de respuesta del servidor
+        now.add(Calendar.DATE, -1)
+        date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(now.time)
 
 
         mViewModel.getTotalDate(date)
@@ -54,11 +55,11 @@ class FirstFragment : Fragment() {
 
         }
 
-        binding.buttonFirst.setOnClickListener {
+        binding.btnSeleccionarFecha.setOnClickListener {
             showDatePickerDialog()
-
         }
     }
+
 
     private fun showDatePickerDialog() {
       val datePicker = DatePicker { day, month, year -> onDateSelected(day, month, year) }
@@ -66,7 +67,6 @@ class FirstFragment : Fragment() {
 
       }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun onDateSelected(day: Int, month: Int, year: Int) {
         if(day!=0 && month!=0 && year!=0) {
             val calendar = Calendar.getInstance()
@@ -74,9 +74,19 @@ class FirstFragment : Fragment() {
             val date = calendar.time
             val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val dateString = formatter.format(date)
-            Log.d("tag", "dateString: $dateString")
-            //llamada a la api picker
-            mViewModel.getTotalDate(dateString)
+            Log.d("tag", "dateString: $dateString $date ")
+            //validar si la fecha es mayor a la fecha actual
+            if (date.after(Date())) {
+                Toast.makeText(
+                    context,
+                    "La fecha seleccionada es mayor a la fecha actual",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                mViewModel.getTotalDate(dateString)
+
+            }
+
         }
 
     }

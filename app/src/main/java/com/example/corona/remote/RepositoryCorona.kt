@@ -10,7 +10,6 @@ class RepositoryCorona {
     val liveDataDateResponse = MutableLiveData<DateResponse>()
 
     suspend fun getTotalRepo(date : String  ){
-        Log.d("REPOSITORY", "UTILIZANDO COROUTINES")
         try {
             val response = retrofit.getTotal(date, "96afa298cbmsh913f910f914494cp110c39jsn01a32d68445e")
 
@@ -24,6 +23,7 @@ class RepositoryCorona {
             }
         } catch (t: Throwable){
             Log.e("ERROR ", t.message.toString())
+
         }
     }
 }
